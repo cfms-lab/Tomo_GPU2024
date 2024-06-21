@@ -82,8 +82,8 @@ __host__ void  STomoNV_CUDA::initCudaMem(void)
 
 
 #ifndef _CUDA_USE_ROTATE_AND_PIXELIZE_IN_ONE_STEP
-	cudaMalloc((void**)&cu_FlatTri1, s_nFlatTri * nYPRInBatch);		cudaCheckError();
-	cudaMemsetAsync(cu_FlatTri1, 0x00, s_nFlatTri * nYPRInBatch);	cudaCheckError();//not necessary. for debug
+	cudaMalloc((void**)&cu_FlatTri1, s_nFlatTri * nYPR);		cudaCheckError();
+	cudaMemsetAsync(cu_FlatTri1, 0x00, s_nFlatTri * nYPR);	cudaCheckError();//not necessary. for debug
 #endif
 
 #ifndef _CUDA_USE_MULTI_STREAM
@@ -523,6 +523,7 @@ __host__ void  STomoNV_CUDA::Step1_RotateCVVoxels(SlotDataIterator sdIt, int ypr
 
 __host__ void  STomoNV_CUDA::Step3_GenerateBed(SlotDataIterator sdIt)
 {
+
 	if(printer_info.BedType == enumBedType::ebtNone) return;
 
 	int threads = 256;

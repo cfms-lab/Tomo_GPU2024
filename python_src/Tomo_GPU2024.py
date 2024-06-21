@@ -6,10 +6,10 @@ import os
 #(1) specify search conditon, filename and initial orientation. 
 # VSCode에서 실행할 때는 .\\으로, VC++에서 디버깅할 때는 ..\\로 해야 함.
 #========================================================================================================================
-# DataSet= [ ('.\\Tomo_MeshData\\(1)cube50_nocut.obj', 0, 0, 0)]
+DataSet= [ ('.\\Tomo_MeshData\\(1)cube50_nocut.obj', 0, 0, 0)]
 # DataSet= [ ('.\\Tomo_MeshData\\(2)sphere75_3k.obj',   0, 0, 0)]
-# DataSet= [ ('.\\Tomo_MeshData\\(3)cone50_63k.obj', 0,  0, 0)] 
-DataSet= [ ('.\\Tomo_MeshData\\(4)Bunny_69k_2x.obj', 0,  0, 0)] 
+# DataSet= [ ('.\\Tomo_MeshData\\(3)cone100_63k.obj', 0,  0, 0)] 
+# DataSet= [ ('.\\Tomo_MeshData\\(4)Bunny_69k_2x.obj', 0,  0, 0)] 
 # DataSet= [ ('.\\Tomo_MeshData\\(5)Bunny_69k.stl',  0,  0, 0)] 
 # DataSet= [ ('.\\Tomo_MeshData\\(6)Bunny_69k_0.5x.stl',  0,  0, 0)] 
 # DataSet= [ ('.\\Tomo_MeshData\\(7)Bunny_5k.stl', 0, 0, 0)] 
