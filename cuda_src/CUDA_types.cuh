@@ -40,7 +40,7 @@ typedef unsigned long int CU_ULInt;
 #define _CUDA_USE_ROTATE_AND_PIXELIZE_IN_ONE_STEP
 	#define _CUDA_USE_MULTI_STREAM //안쓰면 4090에서 느려짐.
 
-#define _CUDA_USE_NONZERO_SLOTBUFFER_ONLY //not working in 4090?? 
+//#define _CUDA_USE_NONZERO_SLOTBUFFER_ONLY //not working in 4090?? 
 #define _CUDA_USE_SHARED_MEMORY_IN_SLOTPAIRING
 #define _CUDA_USE_SPLIT_AL_BE_IN_VOXELIZE_STEP
 

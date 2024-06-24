@@ -145,7 +145,7 @@ __device__  __inline__ CU_SLOT_BUFFER_TYPE  cu_getBaryCoordZ(
 				cu_Exch( memZcrd, new_z);
 				cu_Exch( memZnrm, new_nZ);
 				#ifdef _CUDA_USE_SPLIT_AL_BE_IN_VOXELIZE_STEP
-				cu_Exch( memType, (new_nZ > 0) ? typeAl : typeBe);// = splitAlBe()
+				cu_Exch( memType, (new_nZ > 0) ? cu_typeAl : cu_typeBe);// = splitAlBe()
 				#endif
 			}
 		}
@@ -221,20 +221,24 @@ __device__  __inline__ CU_SLOT_BUFFER_TYPE  cu_getBaryCoordZ(
 		float u = -1.f,v = -1.f,w = -1.f;//barycentric coord.
 
 		//(1) exceptional case: for very small triangle
-		//if(1 && thID ==0 && ftri[thIDz][15]/*=ttri.AABB.GetMaxSpan()*/ < 1.1)
+		//if(thID ==0 && ftri[thIDz][15]/*=ttri.AABB.GetMaxSpan()*/ < 1.1) //make noises in 4090
 		//{
 		//	u = v = w = 0.33333f;
 		//	vxl_global_crd[0] = ftri[thIDz][0] * u + ftri[thIDz][3] * v + ftri[thIDz][6] * w;
-		//	vxl_global_crd[1] = ftri[thIDz][2] * u + ftri[thIDz][4] * v + ftri[thIDz][7] * w;
+		//	vxl_global_crd[1] = ftri[thIDz][1] * u + ftri[thIDz][4] * v + ftri[thIDz][7] * w;
 		//}
 
 		//(2) general case. use barycentric coordinate
-		if(u < 0.f && !cu_getBaryCoord2D(vxl_global_crd, &ftri[thIDz][0], &ftri[thIDz][3], &ftri[thIDz][6], u, v, w))
+		if(u < 0.f)
 		{
-			return;
+			if(!cu_getBaryCoord2D(vxl_global_crd, &ftri[thIDz][0], &ftri[thIDz][3], &ftri[thIDz][6], u, v, w))
+			{
+				return;
+			}
 		}
 
-		//write back data to global memory.do not change this order.
+
+		//write back data to global memory. Do Not change the order.
 		CU_SLOT_BUFFER_TYPE*	memNPxl	= cu_nPixel + slot_ID;
 		if( *memNPxl < CU_SLOT_CAPACITY_16-1)
 		{ 
@@ -248,7 +252,12 @@ __device__  __inline__ CU_SLOT_BUFFER_TYPE  cu_getBaryCoordZ(
 			cu_Exch( cu_pZcrd + slotdata_ID, new_z);
 			cu_Exch( cu_pZnrm + slotdata_ID, new_nZ);
 			#ifdef _CUDA_USE_SPLIT_AL_BE_IN_VOXELIZE_STEP
-			cu_Exch( cu_pType + slotdata_ID, (new_nZ > 0) ? typeAl : typeBe);// = splitAlBe()
+				#if 1
+					cu_Exch( cu_pType + slotdata_ID, (new_nZ > 0) ? cu_typeAl : cu_typeBe);// = splitAlBe()
+				#else
+					if(new_nZ > 10)        cu_Exch(cu_pType + slotdata_ID , cu_typeAl);
+					else if (new_nZ < 10)  cu_Exch(cu_pType + slotdata_ID , cu_typeBe);
+				#endif
 			#endif
 		}
 
