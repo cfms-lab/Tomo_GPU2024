@@ -165,6 +165,10 @@ MESH_ELE_ID_TYPE  _TomoNV_Function_Call(
 {
 	startTimer();
 
+	#ifdef _DEBUG
+	std::cout << "Warning:: __DEBUG__MODE__";
+	#endif
+
 	S3DPrinterInfo info(_float32_info_x12, _int32_info_x9, _tri, _vtx, _vtx_nrm, _tri_nrm, _chull_tri, _cvhull_vtx, _chull_trinrm, 0, 0, 0);//takes some memory.
 
 	Mss = new FLOAT32[info.nYPR + 2];

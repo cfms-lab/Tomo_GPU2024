@@ -285,12 +285,12 @@ def graphYP_3D( yaw_range, pitch_range, values, optimals, worsts, ax=None):
   divider = make_axes_locatable(ax);  cbar = plt.colorbar(m, ax=ax,fraction=0.03, pad=0.04)
   cbar.ax.set_title("Mss \n [mm]", size=10)
   #show optimal orientations. The blue sphere is the best optimal.
-  if optimals!=[] and yaw_range.shape[0] <= 37:
+  if optimals.size > 0 and yaw_range.shape[0] <= 37:
     optX = toDegree(optimals[:,0]); optY = toDegree(optimals[:,1])
     optZ = rbf( optX, optY)
     optNorm=colors.Normalize(vmin = np.min(optZ), vmax = np.max(optZ), clip = False)
     ax.scatter(optX, optY, optZ, color='red', s=(2.-optNorm(optZ))*100.)
-  if worsts!=[] and yaw_range.shape[0] <= 37:
+  if worsts.size > 0 and yaw_range.shape[0] <= 37:
     optX = toDegree(worsts[:,0]); optY = toDegree(worsts[:,1])
     optZ = rbf( optX, optY)
     optNorm=colors.Normalize(vmin = np.min(optZ), vmax = np.max(optZ), clip = False)
@@ -320,7 +320,7 @@ def graphYP_2D( yaw_range, pitch_range, values, optimals, worsts, ax=None):
   cbar.ax.set_title("Mtotal \n [g]", size=12)
   ax.set_aspect('equal', 'box')
   #show optimal orientations. The blue sphere is the best optimal.
-  if optimals != []:
+  if optimals.size > 0:
     nOpt = optimals.shape[0]
     optX = toDegree(optimals[:,0]); optY = toDegree(optimals[:,1]) 
     if yaw_range.shape[0] <= 37:
@@ -487,7 +487,7 @@ def Plot3D(mesh0, yaw_range, pitch_range, value_data, optimals=[], worsts=[]):
     voxel_size = max(mesh0.get_max_bound() - mesh0.get_min_bound()) / 8
     mesh0 = mesh0.simplify_vertex_clustering(
       voxel_size=voxel_size, contraction=o3d.geometry.SimplificationContraction.Average)
-  nOpts = optimals.shape[0] if(optimals!=[] ) else 0
+  nOpts = optimals.shape[0] if(optimals.size > 0 ) else 0
   fig = plt.figure(figsize=(4*nOpts,8))
   gs1 = fig.add_gridspec(2, nOpts+1, width_ratios=[2,*([1]*nOpts)])
   ax00 = fig.add_subplot(gs1[0,0])
@@ -498,12 +498,12 @@ def Plot3D(mesh0, yaw_range, pitch_range, value_data, optimals=[], worsts=[]):
   graphYP_2D( yaw_range, pitch_range, value_data, optimals, worsts, ax00)
   graphYP_3D( yaw_range, pitch_range, value_data, optimals, worsts, ax10)
   
-  if optimals != [] :
+  if optimals.size > 0:
     [ drawOptimals( mesh0, optimals,optID, 'optimal', ax = ax_opts[optID], ) for optID in range(nOpts) ]
-  if worsts != [] :
+  if worsts.size > 0:
     [ drawOptimals( mesh0, worsts, wstID, 'worst' , ax = ax_wsts[wstID], ) for wstID in range(nOpts) ]
 
-  if optimals != [] :
+  if optimals.size > 0:
     plt.tight_layout()
     import os
     global g_input_mesh_filename

@@ -42,7 +42,7 @@ typedef unsigned long int CU_ULInt;
 
 //#define _CUDA_USE_NONZERO_SLOTBUFFER_ONLY //not working in 4090?? 
 #define _CUDA_USE_SHARED_MEMORY_IN_SLOTPAIRING
-#define _CUDA_USE_SPLIT_AL_BE_IN_VOXELIZE_STEP
+//#define _CUDA_USE_SPLIT_AL_BE_IN_VOXELIZE_STEP
 
 #define _CUDA_USE_SERIALIZED_SLOTDATA_MEMORY
 //#define _CUDA_USE_SERIALIZED_VO_VSS_MEMORY //4090에서 값 이상하고 노이즈가 낀다.
@@ -51,7 +51,6 @@ typedef unsigned long int CU_ULInt;
 	//CUDA version TomoNV types
 typedef			 int CU_SLOT_BUFFER_TYPE;//4 bytes [	-2,147,483,648 ~ 2,147,483,647]
 
-//static const int CU_BLOCK_SIZE_16			= 16; //obsolete..
 static const int CU_FLATTRI_SIZE_16		= 16;//triangle data from cpu to gpu
 static const int CU_SLOT_CAPACITY_16	= 16;//max number of pixels to store in a single slot
 static const int CU_MATRIX_SIZE_12		= 12;//4x3 rotation/translation matrix
@@ -61,8 +60,8 @@ static const int CU_SLOTS_PER_WORK		= 16;//RTX4090은 32보다 16이 낫다.
 
 static const int CU_MAX_NUMBER_OF_STREAM = 16;
 
-__device__ const CU_FLOAT32 cu_fMARGIN = 0.001;
-__device__ const CU_FLOAT32 cu_fNORMALFACTOR = 1000.;
+__device__ const CU_FLOAT32 cu_fMARGIN = 0.001;//epsilon
+__device__ const CU_FLOAT32 cu_fNORMALFACTOR = 1000.;//store normal vector [-1.f, +1.f] to [-1000i, +1000i]
 __device__ const CU_FLOAT32 cu_HALF_VOXEL_SIZE = 0.5;
 
 __device__ const CU_SLOT_BUFFER_TYPE cu_typeAl	= 1 << (int)enumPixelType::eptAl;//1
@@ -75,10 +74,9 @@ __device__ const CU_SLOT_BUFFER_TYPE cu_typeVo	= 1 << (int)enumPixelType::eptVo;
 __device__ const CU_SLOT_BUFFER_TYPE cu_typeVss	= 1 << (int)enumPixelType::eptVss;//128
 
 
-//https://github.com/master-hpc/mp-generic-bubble-sort/blob/master/generic-bubble-sort.cu
-template<typename T>
-struct ShouldSwap
-{
+
+template<typename T> struct ShouldSwap
+{//https://github.com/master-hpc/mp-generic-bubble-sort/blob/master/generic-bubble-sort.cu
 	ShouldSwap(bool _bOrder = true) : bDescendingOrder(_bOrder) {}
 	~ShouldSwap() {}
 	bool  bDescendingOrder;
@@ -95,9 +93,7 @@ template<typename T> __host__ __device__ bool ShouldSwap<T>::operator() (const T
 
 template<typename T> __host__ __device__ __inline__ void swap(T* a, T* b)
 {
-	T tmp = *a;
-	*a = *b;
-	*b = tmp;
+	T tmp = *a; 	*a = *b;	*b = tmp;
 }
 
 

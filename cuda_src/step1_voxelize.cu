@@ -8,7 +8,7 @@ using namespace Tomo;
 __device__  __inline__ bool  cu_getBaryCoord2D(
 	/*inputs*/ CU_FLOAT32* p, CU_FLOAT32* triA, CU_FLOAT32* triB, CU_FLOAT32* triC,
 	/*output*/ CU_FLOAT32& u, CU_FLOAT32& v, CU_FLOAT32& w)
-{
+{//https://ceng2.ktu.edu.tr/~cakir/files/grafikler/Texture_Mapping.pdf
 	CU_FLOAT32 v0[2] = { triB[0] - triA[0], triB[1] - triA[1] };
 	CU_FLOAT32 v1[2] = { triC[0] - triA[0], triC[1] - triA[1] };
 	CU_FLOAT32 v2[2] = { p[0] - triA[0], p[1] - triA[1] };
@@ -21,14 +21,14 @@ __device__  __inline__ bool  cu_getBaryCoord2D(
 
 	CU_FLOAT32 denom = d00 * d11 - d01 * d01;
 
-	if ( abs(denom) > cu_fMARGIN)
-	{
-		v = (d11 * d20 - d01 * d21) / denom;
-		w = (d00 * d21 - d01 * d20) / denom;
-		u = 1.0 - v - w;
-		return  (u >= -cu_fMARGIN && v >= -cu_fMARGIN && v <= 1. + cu_fMARGIN && u + v <= 1. + cu_fMARGIN);
-	}
-	return false;
+	if ( abs(denom) <cu_fMARGIN) return false;
+
+	v = (d11 * d20 - d01 * d21) / denom;
+	w = (d00 * d21 - d01 * d20) / denom;
+	u = 1.0 - v - w;
+
+	return  (v >= -cu_fMARGIN && w >= -cu_fMARGIN && v + w <= 1.+ cu_fMARGIN);
+
 }
 
 __device__  __inline__ CU_SLOT_BUFFER_TYPE  cu_getBaryCoordZ(
@@ -221,6 +221,7 @@ __device__  __inline__ CU_SLOT_BUFFER_TYPE  cu_getBaryCoordZ(
 		float u = -1.f,v = -1.f,w = -1.f;//barycentric coord.
 
 		//(1) exceptional case: for very small triangle
+		#if 0
 		//if(thID ==0 && ftri[thIDz][15]/*=ttri.AABB.GetMaxSpan()*/ < 1.1) //make noises in 4090
 		//{
 		//	u = v = w = 0.33333f;
@@ -230,11 +231,11 @@ __device__  __inline__ CU_SLOT_BUFFER_TYPE  cu_getBaryCoordZ(
 
 		//(2) general case. use barycentric coordinate
 		if(u < 0.f)
+		#endif
 		{
-			if(!cu_getBaryCoord2D(vxl_global_crd, &ftri[thIDz][0], &ftri[thIDz][3], &ftri[thIDz][6], u, v, w))
-			{
-				return;
-			}
+			if(!cu_getBaryCoord2D(vxl_global_crd, 
+					&ftri[thIDz][0], &ftri[thIDz][3], &ftri[thIDz][6], 
+					u, v, w))			{				return;			}//point-in-triangle test
 		}
 
 
@@ -252,12 +253,7 @@ __device__  __inline__ CU_SLOT_BUFFER_TYPE  cu_getBaryCoordZ(
 			cu_Exch( cu_pZcrd + slotdata_ID, new_z);
 			cu_Exch( cu_pZnrm + slotdata_ID, new_nZ);
 			#ifdef _CUDA_USE_SPLIT_AL_BE_IN_VOXELIZE_STEP
-				#if 1
-					cu_Exch( cu_pType + slotdata_ID, (new_nZ > 0) ? cu_typeAl : cu_typeBe);// = splitAlBe()
-				#else
-					if(new_nZ > 10)        cu_Exch(cu_pType + slotdata_ID , cu_typeAl);
-					else if (new_nZ < 10)  cu_Exch(cu_pType + slotdata_ID , cu_typeBe);
-				#endif
+			cu_Exch( cu_pType + slotdata_ID, (new_nZ > 0) ? cu_typeAl : cu_typeBe);// = splitAlBe()
 			#endif
 		}
 

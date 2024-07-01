@@ -5,7 +5,7 @@ modified support structure tomography, General-Purpose GPU calculation version (
 
 #### 2. Install software
 #####    (1) Install Visual Studio Code (VSCode)
-#####    (2) Install Python 3 (preferably Version 3.7.8 64bit)
+#####    (2) Install Python 3 (preferably Version 3.10.5 64bit)
 #####    (3) Install Python packages using "requirements.txt".
 ```
 pip install -r requirements.txt
@@ -13,7 +13,7 @@ pip install -r requirements.txt
 #####    (4) Install VC++ 2015, 2017, 2019, and 2022 Redistributable package
 ( https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170 ).
 
-#####    (5) Install NVIDIA CUDA package (v12.1)
+#####    (5) (Optional) If you want to modify CPU/GPU code in VS, Install NVIDIA CUDA package (v12.0 or above)
 ( https://developer.nvidia.com/cuda-12-1-0-download-archive )
 
 #### 3. Open the downloaded folder in VSCode (Main menu->"File"->"Open Folder"). 
