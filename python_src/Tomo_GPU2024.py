@@ -6,18 +6,18 @@ import os
 #(1) specify search conditon, filename and initial orientation. 
 # VSCode에서 실행할 때는 .\\으로, VC++에서 디버깅할 때는 ..\\로 해야 함.
 #========================================================================================================================
-DataSet= [ ('.\\Tomo_MeshData\\(1)cube50_nocut.obj', 0, 0, 0)]
-# DataSet= [ ('.\\Tomo_MeshData\\(2)sphere75_3k.obj',   0, 0, 0)]
-# DataSet= [ ('.\\Tomo_MeshData\\(3)cone100_63k.obj', 0,  0, 0)] 
-# DataSet= [ ('.\\Tomo_MeshData\\(4)Bunny_69k_2x.obj', 0,  0, 0)] 
-# DataSet= [ ('.\\Tomo_MeshData\\(5)Bunny_69k.stl',  0,  0, 0)] 
-# DataSet= [ ('.\\Tomo_MeshData\\(6)Bunny_69k_0.5x.stl',  0,  0, 0)] 
-# DataSet= [ ('.\\Tomo_MeshData\\(7)Bunny_5k.stl', 0, 0, 0)] 
-# DataSet= [ ('.\\Tomo_MeshData\\(8)Bunny_1k.obj',   0,  0, 0)] 
-# DataSet= [ ('.\\Tomo_MeshData\\(9)manikin_rotated.obj',   0,  0, 0)] 
-# DataSet= [ ('.\\Tomo_MeshData\\(10)dragon_100k_1.5x.obj',   0,  0, 0)] 
-# DataSet= [ ('.\\Tomo_MeshData\\(11)happy_50k_0.75x.obj',   0,  0, 0)] 
-# DataSet= [ ('.\\Tomo_MeshData\\(12)lucy_50k.obj',   0,  0, 0)] 
+DataSet= [ ('.\\Tomo_MeshData\\(1)cube50_nocut.ply', 0, 0, 0)]
+# DataSet= [ ('.\\Tomo_MeshData\\(2)sphere75_3k.ply',   0, 0, 0)]
+# DataSet= [ ('.\\Tomo_MeshData\\(3)cone100_63k.ply', 0,  0, 0)] 
+# DataSet= [ ('.\\Tomo_MeshData\\(4)Bunny_69k_2x.ply', 0,  0, 0)] 
+# DataSet= [ ('.\\Tomo_MeshData\\(5)Bunny_69k.ply',  0,  0, 0)] 
+# DataSet= [ ('.\\Tomo_MeshData\\(6)Bunny_69k_0.5x.ply',  0,  0, 0)] 
+# DataSet= [ ('.\\Tomo_MeshData\\(7)Bunny_5k.ply', 0, 0, 0)] 
+# DataSet= [ ('.\\Tomo_MeshData\\(8)Bunny_1k.ply',   0,  0, 0)] 
+# DataSet= [ ('.\\Tomo_MeshData\\(9)manikin_rotated.ply',   0,  0, 0)] 
+# DataSet= [ ('.\\Tomo_MeshData\\(10)dragon_100k_1.5x.ply',   0,  0, 0)] 
+# DataSet= [ ('.\\Tomo_MeshData\\(11)happy_50k_0.75x.ply',   0,  0, 0)] 
+# DataSet= [ ('.\\Tomo_MeshData\\(12)lucy_50k.ply',   0,  0, 0)] 
 
 theta_YP = 0 #type 1). seeing a specific orientation. 
 #theta_YP = 1  type 2). search optimal orientation, with search step 360/N (N=integer)
