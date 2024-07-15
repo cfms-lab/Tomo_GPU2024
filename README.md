@@ -18,7 +18,7 @@ pip install -r requirements.txt
 
 #### 3. Open the downloaded folder in VSCode (Main menu->"File"->"Open Folder"). 
 
-#### 4. Modify  mesh filename,  initial orientation and angle interval(=theta_YP) in "tomo_GPU2024.py".  Run the "tomo_GPU2024.py" (shortcut key, F5)
+#### 4. Modify  mesh filename,  initial orientation and angle interval(=theta_YP) in "tomo_GPU2024.py" under "\python_src\".  Run the "tomo_GPU2024.py" (shortcut key, F5)
 
 #####    (1) To search optimal orientation, input "theta_yp" value as "360 / N " (where N = integer).
 ```
