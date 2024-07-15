@@ -23,8 +23,8 @@ pip install -r requirements.txt
 #####    (1) To search optimal orientation, input "theta_yp" value as "360 / N " (where N = integer).
 ```
 #=========================================================================================
-DataSet= [( 'MeshData\\(4)Bunny_69k.stl', 0, 0, 0)
-theta_YP = 30
+DataSet= [ ('.\\Tomo_MeshData\\(5)Bunny_69k.ply',  0,  0, 0)]
+theta_YP = 5
 #=========================================================================================
 ```
 ![TomoNV_logo](./Tomo_MeshData/pics/fig1.jpg)
@@ -32,7 +32,7 @@ theta_YP = 30
 #####    (2) To see the support structure information for the given (yaw, pitch, roll), set "theta_YP" as zero.
 ```
 #=========================================================================================
-DataSet= [( 'MeshData\\(4)Bunny_69k.stl', 60, 120, 0) #1st optimal of Bunny
+DataSet= [ ('.\\Tomo_MeshData\\(5)Bunny_69k.ply',  2310, 54, 0) #1st optimal of Bunny
 theta_YP = 0
 #=========================================================================================
 ```
@@ -52,7 +52,7 @@ tomoNV_Cpp1.BedType = ( enumBedType.ebtRaft, 0, 2, 0.3 + 0.27 + 2 * 0.2)
 ```
 #=========================================================================================
 #tomoNV_Cpp1.Run(cpp_function_name = 'TomoNV_INT3') #call CPU version
-tomoNV_Cpp1.Run(cpp_function_name = 'TomoNV_CUDA') #call GPU version. Need NVIDIA graphic card (GTX760 or above)
+tomoNV_Cpp1.Run(cpp_function_name = 'TomoNV_CUDA') #call GPU version. Need NVIDIA graphic card (GTX1050 or above)
 #=========================================================================================
 ```
 
