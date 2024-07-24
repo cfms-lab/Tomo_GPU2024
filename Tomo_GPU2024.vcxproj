@@ -222,7 +222,7 @@
     <ClInclude Include="cpu_src\SMatrix33f.h" />
     <ClInclude Include="cpu_src\STomoNV_CvxH.h" />
     <ClInclude Include="cuda_src\step3_generateBed.cuh" />
-    <ClInclude Include="cuda_src\step1_rotCVVoxel.cuh" />
+    <ClInclude Include="cuda_src\step1_rotPixel.cuh" />
     <ClInclude Include="cuda_src\step2_slotPairing.cuh" />
     <ClInclude Include="cuda_src\STomoNV_CUDA.cuh" />
     <ClInclude Include="framework.h" />
@@ -280,7 +280,7 @@
   <ItemGroup>
     <CudaCompile Include="cuda_src\step3_generateBed.cu" />
     <CudaCompile Include="cuda_src\step4_reducedSum.cu" />
-    <CudaCompile Include="cuda_src\step1_rotCVVoxel.cu" />
+    <CudaCompile Include="cuda_src\step1_rotPixel.cu" />
     <CudaCompile Include="cuda_src\SlotData.cu" />
     <CudaCompile Include="cuda_src\step2_slotPairing.cu" />
     <CudaCompile Include="cuda_src\STomoNV_CUDA.cu" />

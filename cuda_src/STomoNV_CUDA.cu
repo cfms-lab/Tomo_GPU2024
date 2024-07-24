@@ -3,8 +3,8 @@
 #include <iostream>
 #include <stdio.h>
 
-#include "step1_voxelize.cuh"
-#include "step1_rotCVVoxel.cuh"
+#include "step1_voxelize.cuh"//obsolete..
+#include "step1_rotPixel.cuh"
 #include "step2_slotPairing.cuh"
 #include "step3_generateBed.cuh"
 #include "step4_reducedSum.cuh"
@@ -505,7 +505,7 @@ __host__ void  STomoNV_CUDA::Step1_RotateCVVoxels(SlotDataIterator sdIt, int ypr
 	const dim3 dbStep1(threads);
 
 	sdIt->SetZero();
-	cu_rotCVVoxel_Streamed_16x16 << < dgStep1, dbStep1, 0, sdIt->stream >> > (
+	cu_rotPixel_Streamed_16x16 << < dgStep1, dbStep1, 0, sdIt->stream >> > (
 					nVoxelX, nCVVoxel, nYPR, //constants
 					yprID_to_start,			
 					cu_m4x3, cu_CVVoxels,//input data
