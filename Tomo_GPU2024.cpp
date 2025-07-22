@@ -177,7 +177,7 @@ MESH_ELE_ID_TYPE  _TomoNV_Function_Call(
 
 	//mult-thread info.
 	const auto processor_count = std::thread::hardware_concurrency();
-	int nThread = min(processor_count - 1, info.nYPR);
+	int nThread = min(processor_count, info.nYPR);
 	int nBlock = info.nYPR / nThread;
 	int nBlRest = info.nYPR % nThread;
 
@@ -244,8 +244,9 @@ MESH_ELE_ID_TYPE  _TomoNV_Function_Call(
 		pData2i[i] = pxlsToDat2i( tmp_pxls, nData2i[i]);
 	}
 
+	//Find SS_pxls for rendering.
 	if(info.bVerbose)
-	{//Find SS_pxls for rendering.
+	{
 		TPVector tmp_pxls = pNV[0].GetSSPixels(info.bUseExplicitSS);
 		int _SS = static_cast<int>(enumPixelType::eptSS);
 		pData2i[_SS] = pxlsToDat2i(tmp_pxls, nData2i[_SS]);
@@ -254,7 +255,7 @@ MESH_ELE_ID_TYPE  _TomoNV_Function_Call(
 	VolMassInfo = pNV[0].vm_info; //final result
 
 	delete[] pNV;
-	endTimer("TomoNV C++ DLL calculation ");
+	if (info.bVerbose) endTimer("TomoNV C++ DLL calculation ");
 	return optID;
 }
 
