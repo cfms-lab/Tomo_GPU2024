@@ -55,10 +55,10 @@ void  getCVVoxels_INT3(TVVector& CV_vxls, const S3DPrinterInfo& _info, FLOAT32 _
 	tempNV.Pixelize(tempNV.CV_vxls);
 	tempNV.Pairing();
 
-	moveVoxelCentersToOrigin(tempNV.CV_vxls);//thread_func()¿¡¼­ È¸Àü½ÃÅ³ °Å´Ï±î, ¹Ì¸® ¿øÁ¡À¸·Î ¿Å°Ü µÐ´Ù.
+	moveVoxelCentersToOrigin(tempNV.CV_vxls);//thread_func()ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½Å³ ï¿½Å´Ï±ï¿½, ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å°ï¿½ ï¿½Ð´ï¿½.
 	rotateVoxels(tempNV.CV_vxls, -P_info.yaw, -P_info.pitch, -P_info.roll);
 	moveVoxelCentersToOrigin(tempNV.CV_vxls);
-	CV_vxls.insert(CV_vxls.end(), tempNV.CV_vxls.begin(), tempNV.CV_vxls.end()); //CVV_vxls << tempNV.CV_vxls; ³Ê¹« ´À¸²
+	CV_vxls.insert(CV_vxls.end(), tempNV.CV_vxls.begin(), tempNV.CV_vxls.end()); //CVV_vxls << tempNV.CV_vxls; ï¿½Ê¹ï¿½ ï¿½ï¿½ï¿½ï¿½
 }
 
 void  getCVVoxels_TMPxl(TVVector& CV_vxls, const S3DPrinterInfo& _info, FLOAT32 _yaw, FLOAT32 _pitch, FLOAT32 _roll)
@@ -71,13 +71,13 @@ void  getCVVoxels_TMPxl(TVVector& CV_vxls, const S3DPrinterInfo& _info, FLOAT32 
 	P_info.yaw = _yaw;  P_info.pitch = _pitch; P_info.roll = _roll;
 	tempNV.Rotate();
 	tempNV.Pixelize(tempNV.CV_vxls);
-	//tempNV.Pairing();//¿©±â¼­´Â pairing ÇÏÁö ¸» °Í.
+	//tempNV.Pairing();//ï¿½ï¿½ï¿½â¼­ï¿½ï¿½ pairing ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½.
 	tempNV.GetCVVoxelsFromSlots(tempNV.CV_vxls);
 
-	moveVoxelCentersToOrigin(tempNV.CV_vxls);//thread_func()¿¡¼­ È¸Àü½ÃÅ³ °Å´Ï±î, ¹Ì¸® ¿øÁ¡À¸·Î ¿Å°Ü µÐ´Ù.
+	moveVoxelCentersToOrigin(tempNV.CV_vxls);//thread_func()ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½Å³ ï¿½Å´Ï±ï¿½, ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å°ï¿½ ï¿½Ð´ï¿½.
 	rotateVoxels(tempNV.CV_vxls, -P_info.yaw, -P_info.pitch, -P_info.roll);
 	moveVoxelCentersToOrigin(tempNV.CV_vxls);
-	CV_vxls.insert(CV_vxls.end(), tempNV.CV_vxls.begin(), tempNV.CV_vxls.end()); //CVV_vxls << tempNV.CV_vxls; ³Ê¹« ´À¸²
+	CV_vxls.insert(CV_vxls.end(), tempNV.CV_vxls.begin(), tempNV.CV_vxls.end()); //CVV_vxls << tempNV.CV_vxls; ï¿½Ê¹ï¿½ ï¿½ï¿½ï¿½ï¿½
 }
 
 
@@ -130,7 +130,7 @@ MESH_ELE_ID_TYPE _find1stOptimal(MESH_ELE_ID_TYPE _nData, FLOAT32* _pData)
 }
 
 template <typename T> void thread_func(T* _pNV, int thread_id, FLOAT32* _YPR, int ypr_id, const TVVector& CV_vxls)
-{//¸ÖÆ¼½º·¹µå Àû¿ëÀ» À§ÇÑ ÇÔ¼ö
+{//ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
 	T* nv = _pNV + thread_id;
 
 	S3DPrinterInfo& P_info = nv->printer_info;
@@ -192,7 +192,7 @@ MESH_ELE_ID_TYPE  _TomoNV_Function_Call(
 	//for CVV version
 	TVVector CV_vxls;
 	if(info.bUseClosedVolumeVoxel)
-	{//º¹¼¿À» ¿ÜºÎ¿¡¼­ ¹Ì¸® »ý¼ºÇØ µÐ´Ù.
+	{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ÜºÎ¿ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð´ï¿½.
 		getCVVoxels_INT3(CV_vxls, info, 0, 0, 0);
 		//getCVVoxels_INT3(CV_vxls, info, toRadian(90.), 0, 0);
 		//getCVVoxels_INT3(CV_vxls, info, 0, toRadian(90.), 0);
@@ -245,7 +245,6 @@ MESH_ELE_ID_TYPE  _TomoNV_Function_Call(
 	}
 
 	//Find SS_pxls for rendering.
-	if(info.bVerbose)
 	{
 		TPVector tmp_pxls = pNV[0].GetSSPixels(info.bUseExplicitSS);
 		int _SS = static_cast<int>(enumPixelType::eptSS);
@@ -255,7 +254,7 @@ MESH_ELE_ID_TYPE  _TomoNV_Function_Call(
 	VolMassInfo = pNV[0].vm_info; //final result
 
 	delete[] pNV;
-	if (info.bVerbose) endTimer("TomoNV C++ DLL calculation ");
+	if (info.bVerbose)	endTimer("TomoNV C++ DLL calculation ");
 	return optID;
 }
 
@@ -278,7 +277,7 @@ MESH_ELE_ID_TYPE TomoNV_CvxH(FLOAT32* _float32_info_x12, MESH_ELE_ID_TYPE* _int3
 
 
 #ifdef _USE_CUDA_FOR_TOMONV_0
-//CUDA¹öÀü Å×½ºÆ® 1.1 subdivision
+//CUDAï¿½ï¿½ï¿½ï¿½ ï¿½×½ï¿½Æ® 1.1 subdivision
 TOMO_FLOAT32 a0[3] = { 0, 10, 10 };
 TOMO_FLOAT32 a1[3] = { 0, 0, 10 };
 TOMO_FLOAT32 a2[3] = { 10, 0, 10 };
@@ -363,7 +362,7 @@ MESH_ELE_ID_TYPE  TomoNV_CUDA(FLOAT32* _float32_info_x12, MESH_ELE_ID_TYPE* _int
 	P_info.SetMaxTriDiameter();//do subdivision and make triangles smaller than CU_TRI_MAX_DIAMETER.
 	if(bUseCVV)
 	{
-		getCVVoxels_TMPxl(CV_vxls, P_info, 0, 0, 0);	//º¹¼¿À» ¿ÜºÎ¿¡¼­ ¹Ì¸® »ý¼ºÇØ µÐ´Ù.
+		getCVVoxels_TMPxl(CV_vxls, P_info, 0, 0, 0);	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ÜºÎ¿ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð´ï¿½.
 
 		P_info.GetYPR4x3Matrix( _YPR, CV_vxls);//prepare rotation matrices
 	}
