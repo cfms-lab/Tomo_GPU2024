@@ -7,7 +7,7 @@
 #include "..\Tomo_types.h"
 
 
-#ifdef __INTELLISENSE__ //__syncthreads()»¡°£ÁÙ ¾ø¾Ö±â https://jueony.tistory.com/10
+#ifdef __INTELLISENSE__ //__syncthreads()ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ö±ï¿½ https://jueony.tistory.com/10
 #define __CUDACC__
 #define __global__ 
 #define __host__ 
@@ -38,15 +38,15 @@ typedef unsigned long int CU_ULInt;
 
 #define _CUDA_USE_ATOMIC_WRITE_FOR_INT32_SLOTBUFFER
 #define _CUDA_USE_ROTATE_AND_PIXELIZE_IN_ONE_STEP
-	#define _CUDA_USE_MULTI_STREAM //¾È¾²¸é 4090¿¡¼­ ´À·ÁÁü.
+	#define _CUDA_USE_MULTI_STREAM //ï¿½È¾ï¿½ï¿½ï¿½ 4090ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 
 //#define _CUDA_USE_NONZERO_SLOTBUFFER_ONLY //not working in 4090?? 
 #define _CUDA_USE_SHARED_MEMORY_IN_SLOTPAIRING
 //#define _CUDA_USE_SPLIT_AL_BE_IN_VOXELIZE_STEP
 
 #define _CUDA_USE_SERIALIZED_SLOTDATA_MEMORY
-//#define _CUDA_USE_SERIALIZED_VO_VSS_MEMORY //4090¿¡¼­ °ª ÀÌ»óÇÏ°í ³ëÀÌÁî°¡ ³¤´Ù.
-#define _CUDA_USE_REDUCED_SUM_BATCH //reduced sumÀ» ÇÑ ¹ø¿¡ ¸ð¾Æ¼­ Ã³¸®ÇÏ±â. µû·Î ÇÏ´Â °Íº¸´Ù ºü¸£´Ù.
+//#define _CUDA_USE_SERIALIZED_VO_VSS_MEMORY //4090ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½î°¡ ï¿½ï¿½ï¿½ï¿½.
+#define _CUDA_USE_REDUCED_SUM_BATCH //reduced sumï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ¼ï¿½ Ã³ï¿½ï¿½ï¿½Ï±ï¿½. ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½Íºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 
 	//CUDA version TomoNV types
 typedef			 int CU_SLOT_BUFFER_TYPE;//4 bytes [	-2,147,483,648 ~ 2,147,483,647]
@@ -55,8 +55,8 @@ static const int CU_FLATTRI_SIZE_16		= 16;//triangle data from cpu to gpu
 static const int CU_SLOT_CAPACITY_16	= 16;//max number of pixels to store in a single slot
 static const int CU_MATRIX_SIZE_12		= 12;//4x3 rotation/translation matrix
 
-static const int CU_TRI_PER_WORK			= 32;//RTX4090Àº 16º¸´Ù 32ÀÏ ¶§ ´õ ºü¸£´Ù. https://junstar92.tistory.com/430
-static const int CU_SLOTS_PER_WORK		= 16;//RTX4090Àº 32º¸´Ù 16ÀÌ ³´´Ù.
+static const int CU_TRI_PER_WORK			= 32;//RTX4090ï¿½ï¿½ 16ï¿½ï¿½ï¿½ï¿½ 32ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. https://junstar92.tistory.com/430
+static const int CU_SLOTS_PER_WORK		= 16;//RTX4090ï¿½ï¿½ 32ï¿½ï¿½ï¿½ï¿½ 16ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 
 static const int CU_MAX_NUMBER_OF_STREAM = 16;
 

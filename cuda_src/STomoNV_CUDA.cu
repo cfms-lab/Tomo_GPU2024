@@ -168,7 +168,7 @@ __host__ FLOAT32* STomoNV_CUDA::ReadPxls(int wrkID, int* _nData2i, INT16** _pDat
 			}
 
 #if 1
-			if(ss_start_z > -1 && ss_end_z > -1 && ss_start_z > ss_end_z)//´À¸®°í, ¹ö±× ÀÖÀ½.
+			if(ss_start_z > -1 && ss_end_z > -1 && ss_start_z > ss_end_z)//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 			{
 				for(int z = ss_start_z ; z >= ss_end_z ; z--)
 				{
@@ -300,7 +300,7 @@ __host__ void	STomoNV_CUDA::Run(const TVVector& CV_vxls, float *_Mo, float *_Mss
 	cudaMalloc((void**)&cu_FlatTri0,		s_nFlatTri	* nStream);	cudaCheckError();
 	cudaMalloc((void**)&cu_m4x3,				s_m4x3*nYPR	* nStream);	cudaCheckError();
 
-	cudaMalloc((void**)&cu_sum_buffer,	sizeof(int)* 2	* nStream);	cudaCheckError();//Step4_ReducedSum_Batch()¸¦ »ç¿ëÇÒ °æ¿ì¸¦ À§ÇØ ³Ë³ËÇÏ°Ô Àâ´Â´Ù.
+	cudaMalloc((void**)&cu_sum_buffer,	sizeof(int)* 2	* nStream);	cudaCheckError();//Step4_ReducedSum_Batch()ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¸¦ ï¿½ï¿½ï¿½ï¿½ ï¿½Ë³ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½Â´ï¿½.
 	cudaMallocHost((void**)&sum_buffer,	sizeof(int)* 2	* nStream);	cudaCheckError();
 	
 #ifdef _CUDA_USE_SERIALIZED_VO_VSS_MEMORY
@@ -313,7 +313,7 @@ if(nYPR>1) __Malloc_Serialized_Vo_Vss_memory();
 
 	if(printer_info.bVerbose) cu_startTimer();
 
-		for( auto& sd: gpu_SlotDataVec) 	{ 			sd.CreateStream(); }//cuda ½ºÆ®¸² »ý¼º & ÀÌº¥Æ® µî·Ï.
+		for( auto& sd: gpu_SlotDataVec) 	{ 			sd.CreateStream(); }//cuda ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ & ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½.
 
 	cudaEvent_t last_event;
 	for( int yprID = 0 ; yprID < nYPR ; yprID += nStream)
@@ -334,7 +334,7 @@ if(nYPR>1) __Malloc_Serialized_Vo_Vss_memory();
 			}
 		}
 #ifdef _CUDA_USE_REDUCED_SUM_BATCH
-		Step4_SlotSum_Batch(yprID, _Mo, _Mss);//step1~3¿¡¼­ °è»êÇÑ Mo, Mss°ªÀ» nStream°³ ÇÑ²¨¹ø¿¡ ÇÕ»êÇÑ´Ù. 
+		Step4_SlotSum_Batch(yprID, _Mo, _Mss);//step1~3ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Mo, Mssï¿½ï¿½ï¿½ï¿½ nStreamï¿½ï¿½ ï¿½Ñ²ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Õ»ï¿½ï¿½Ñ´ï¿½. 
 #endif
 	}
 	cudaDeviceSynchronize(); cudaCheckError();
@@ -350,14 +350,14 @@ if(nYPR>1) __Free_Serialized_Vo_Vss_memory();
 
 __host__ void STomoNV_CUDA::Step1_RotateAndPixelize( SlotDataIterator sdIt, int yprID_to_start)
 {
-	if(cu_CVVoxels!=nullptr)  return Step1_RotateCVVoxels( sdIt, yprID_to_start);//CVVoxelÀ» ÀçÈ°¿ëÇØ¼­ ¾²´Â °æ¿ì.
+	if(cu_CVVoxels!=nullptr)  return Step1_RotateCVVoxels( sdIt, yprID_to_start);//CVVoxelï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½.
 
-	//ÀÌ ¹öÀüÀº yprÀ» _nStream°³ Ã³¸®ÇÑ´Ù.
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ yprï¿½ï¿½ _nStreamï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ñ´ï¿½.
 	int problem_size = nFlatTri;
 	int blocksize = CU_TRI_PER_WORK;
 	int gridsize  = (problem_size + blocksize -1) / blocksize;
 	const dim3 dgStep1( gridsize);//=nWorksPerBlocks
-	const dim3 dbStep1(	printer_info.TriMaxDiameter,	printer_info.TriMaxDiameter, blocksize);//°¢ »ï°¢ÇüÀ» TriMaxDiameter x TriMaxDiameter Å©±âÀÇ °ÝÀÚ¿¡ ³Ö°í º¹¼¿È­ÇÑ´Ù. 
+	const dim3 dbStep1(	printer_info.TriMaxDiameter,	printer_info.TriMaxDiameter, blocksize);//ï¿½ï¿½ ï¿½ï°¢ï¿½ï¿½ï¿½ï¿½ TriMaxDiameter x TriMaxDiameter Å©ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½È­ï¿½Ñ´ï¿½. 
 
 	int triID_to_start = 0;//obsolete..
 
@@ -432,7 +432,7 @@ cudaMemcpy( reduced_sum_buffer,  cu_reduced_sum_buffer, sizeof(int) * 2 * nStrea
 		}
 
 #elif defined( _CUDA_USE_MULTI_STREAM)
-		//¿©±â´Â º°µµ·Î Vo_stream, Vss_streamÀ» »ç¿ëÇÑ´Ù. 
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Vo_stream, Vss_streamï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½. 
 		for(int s = 0 ; s < nStream ; s++)
 		{
 			if(yprID + s < nYPR)

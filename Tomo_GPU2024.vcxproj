@@ -202,7 +202,7 @@
       <AdditionalOptions>/NODEFAULTLIB:LIBCMT /LTCG %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <CudaCompile>
-      <Include>$(CUDA_INC_PATH)</Include>
+      <Include>$(CUDA_PATH)\include\</Include>
       <TargetMachinePlatform>64</TargetMachinePlatform>
       <Runtime>InheritFromHost</Runtime>
       <GenerateRelocatableDeviceCode>true</GenerateRelocatableDeviceCode>

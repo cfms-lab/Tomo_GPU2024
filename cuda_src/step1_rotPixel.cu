@@ -18,7 +18,7 @@ __global__ void cu_rotPixel_Streamed_16x16(
 	//per-BLOCK operation +++++++++++++++
 	const int thIDx		= threadIdx.x;
 	__shared__ float m4x3[CU_MATRIX_SIZE_12];
-	if (thIDx <  CU_MATRIX_SIZE_12)	{//copy matrix data to shared memory.. ÀÌ°Ç ºí·Ï ³»ºÎ ¸ðµç Á¡¿¡ ´ëÇØ °øÅë.
+	if (thIDx <  CU_MATRIX_SIZE_12)	{//copy matrix data to shared memory.. ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		 m4x3[thIDx]	= cu_m4x3[yprID * CU_MATRIX_SIZE_12 + thIDx];
 	}
 	__syncthreads();

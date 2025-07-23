@@ -41,7 +41,7 @@ public:
     /*output */ SLOT_BUFFER_TYPE* _Type_buffer);//for later CUDA version.
 
 
-  void  createAlBePxls(         const size_t S_W, SLOT_BUFFER_TYPE& S_L,  SLOT_BUFFER_TYPE* curr_Pxl_slot);//Todo: ÀÎ¼ö ¼¼°³¸¦ ±¸Á¶Ã¼ ÇÏ³ª·Î Á¤¸®.
+  void  createAlBePxls(         const size_t S_W, SLOT_BUFFER_TYPE& S_L,  SLOT_BUFFER_TYPE* curr_Pxl_slot);//Todo: ï¿½Î¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
     void  splitAlBe(            const size_t S_W, const size_t S_L,       SLOT_BUFFER_TYPE* curr_Pxl_slot);
     void  matchAlBeAlternation( const size_t S_W, SLOT_BUFFER_TYPE& S_L,  SLOT_BUFFER_TYPE* curr_Pxl_slot);
       inline int _xorAlBe(int _iTypeByte);

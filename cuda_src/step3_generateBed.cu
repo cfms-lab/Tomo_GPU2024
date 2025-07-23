@@ -44,7 +44,7 @@ __global__ void cu_genBed(
 		{
 			if( bedtype == enumBedType::ebtRaft && ((p0_type & cu_typeBe) || (p0_type & cu_typeSSA)) )
 			{
-				//·¡ÇÁÆ®ÀÏ ¶§´Â beta¾Æ·¡ ÇÑ Ãþ ´õ ±ò¾ÆÁØ´Ù.
+				//ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ betaï¿½Æ·ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 			}
 			else if((p0_type & cu_typeAl)  || (p0_type & cu_typeBe)
 					 || (p0_type & cu_typeSSA) || (p0_type & cu_typeSS)  )  
@@ -104,7 +104,7 @@ __global__ void cu_genBed(
 		cu_Exch(	memZcrd + S_L-1, 0);
 
 		//update volume
-		cu_Add(		memVss, /*int(height)·Î ÇÏ¸é 0 ÀÌ ³ª¿Í¼­ ¾ÈµÈ´Ù*/ 1);
+		cu_Add(		memVss, /*int(height)ï¿½ï¿½ ï¿½Ï¸ï¿½ 0 ï¿½ï¿½ ï¿½ï¿½ï¿½Í¼ï¿½ ï¿½ÈµÈ´ï¿½*/ 1);
 	}
 
 }
