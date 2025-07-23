@@ -14,20 +14,17 @@ import os
 # DataSet= [ ('.\\Tomo_MeshData\\(6)Bunny_69k_0.5x.ply',  0,  0, 0)]
 # DataSet= [ ('.\\Tomo_MeshData\\(7)Bunny_5k.ply', 0, 0, 0)]
 # DataSet= [ ('.\\Tomo_MeshData\\(8)Bunny_1k.ply',   0,  0, 0)]
-#DataSet= [ ('.\\Tomo_MeshData\\(9)manikin.ply',   0, 0,  0)]
+DataSet= [ ('.\\Tomo_MeshData\\(9)manikin.ply',   0, 0,  0)]
 # DataSet= [ ('.\\Tomo_MeshData\\(10)dragon_100k_1.5x.ply',   0,  0, 0)]
 # DataSet= [ ('.\\Tomo_MeshData\\(11)happy_50k_0.75x.ply',   0,  0, 0)]
 # DataSet= [ ('.\\Tomo_MeshData\\(12)lucy_50k.ply',   0,  0, 0)]
 # DataSet= [ ('.\\Tomo_MeshData\\happy_1M_lay.obj',   0,  0, 0)]
 # DataSet= [ ('.\\Tomo_MeshData\\lucy_1.5M_2x.obj',   0,  0, 0)]
 # DataSet= [ ('.\\Tomo_MeshData\\Surface_Vertex_Centroid_3x.stl',   0,  0, 0)]
-#DataSet= [ ('.\\Tomo_MeshData\\cutter_rawmesh.stl',   0,  0, 0)]
-#DataSet= [ ('.\\Tomo_MeshData\\shell_rawmesh.stl',   0,  0, 0)]
-DataSet= [ ('.\\Tomo_MeshData\\MashaPNG.stl',   0,  0, 0)]
 
 
 #theta_YP = 0 #type 1). seeing a specific orientation.
-theta_YP = 10 #type #2). search optimal orientation, with search step 360/N (N=integer)
+theta_YP = 30 #type #2). search optimal orientation, with search step 360/N (N=integer)
 #========================================================================================================================
 
 for Data in DataSet:
@@ -58,15 +55,15 @@ for Data in DataSet:
     tomoNV_Cpp1.Css     = 1.0 # correction constant for filament dilation effect.
     tomoNV_Cpp1.dVoxel  = 1.0 # size of voxel. Do not change this value.
     tomoNV_Cpp1.nVoxel  = 256 # number of voxels. Do not change this value.
-    tomoNV_Cpp1.theta_c = toRadian(10) #filament critical angle for support structure
+    tomoNV_Cpp1.theta_c = toRadian(60) #filament critical angle for support structure
     tomoNV_Cpp1.bUseExplicitSS = True #항상 True로 할 것.
 
     # tomoNV_Cpp1.BedType = ( enumBedType.ebtNone, 0, 0, 0) # 베드 없음
     # tomoNV_Cpp1.BedType = ( enumBedType.ebtSkirt, 3, 3+0.8, 0.2)# 스커트. 라인 간격, 스커트 라인 간격 + 스커트라인 수 *필라멘트 두께 , 바닥 레이어 높이
-    tomoNV_Cpp1.BedType = ( enumBedType.ebtBrim, 0, 10 * 0.4, 0.2)# 브림. 라인  수 * 서피스 레이어 두께  , 바닥 레이어 높이
-    #tomoNV_Cpp1.BedType = ( enumBedType.ebtRaft, 0, 2, 0.3 + 0.27 + 2 * 0.2)# 0, 래프트 크기(mm), 베이스 두께 + 인터페이스 두께  + 서피스 레이어 수 * 서피스 레이어 두께
+    # tomoNV_Cpp1.BedType = ( enumBedType.ebtBrim, 0, 10 * 0.4, 0.2)# 브림. 라인  수 * 서피스 레이어 두께  , 바닥 레이어 높이
+    tomoNV_Cpp1.BedType = ( enumBedType.ebtRaft, 0, 2, 0.3 + 0.27 + 2 * 0.2)# 0, 래프트 크기(mm), 베이스 두께 + 인터페이스 두께  + 서피스 레이어 수 * 서피스 레이어 두께
 
-    #tomoNV_Cpp1.Run(cpp_function_name = 'TomoNV_INT3') #call CPU version
+    # tomoNV_Cpp1.Run(cpp_function_name = 'TomoNV_INT3') #call CPU version
     tomoNV_Cpp1.Run(cpp_function_name = 'TomoNV_CUDA') #call GPU version. Need NVIDIA graphic card (GTX760 or above)
 
     #-----------------------------------------------
