@@ -373,8 +373,6 @@ MESH_ELE_ID_TYPE  TomoNV_CUDA(FLOAT32* _float32_info_x12, MESH_ELE_ID_TYPE* _int
 	Cuda1.bWriteBackPxlsForRendering = (nYPR == 1);
 	Cuda1.Run(CV_vxls, Mo, Mss);//find optimals 
 
-	if(!P_info.bVerbose) return 0;
-
 	//prepare rendering the 1st optimal
 	MESH_ELE_ID_TYPE  optID = (nYPR > 1) ? _find1stOptimal(nYPR, Mss) : 0;//ID to display
 	if(nYPR > 1)
